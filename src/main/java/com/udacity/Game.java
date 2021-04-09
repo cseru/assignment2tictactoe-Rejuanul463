@@ -151,6 +151,67 @@ public class Game {
     public String checkGameWinner(char [][]grid){
         String result = "None";
         //Student code goes here ...
+        
+        boolean xWin = false , oWin = false , tie = false ;
+        int gamCounter = 0;
+
+        for(int i=0 ; i < 3 ; i++){
+            int xCounterVertical = 0 , xCounterHorizontal = 0 , yCounterVertical = 0 , yCounterHorizontal = 0;
+            tie = false;
+
+            for(int j = 0 ; j < 3 ; j++){
+                if(grid[i][j] == 'x'){
+                    xCounterHorizontal++;// += 1;
+                }
+                if(grid[j][i] == 'x'){
+                    xCounterVertical += 1;
+                }
+                if(grid[i][j] == 'o'){
+                    yCounterHorizontal += 1;
+                }
+                if(grid[j][i] == 'o') {
+                    yCounterVertical += 1;
+                }
+                if(grid[i][j] != '-'){
+                    gamCounter +=1;
+                }
+            }
+
+            //if( xCounterVertical == 2 || xCounterHorizontal == 2 || yCounterVertical == 2 || yCounterHorizontal == 2 ) {
+            //    tie = true;
+            //}
+
+            if(xCounterVertical == 3 || xCounterHorizontal == 3){
+                xWin = true;
+                break;
+            }else if(yCounterVertical == 3 || yCounterHorizontal == 3){
+                oWin = true;
+                break;
+            }else{
+                tie = true;
+            }
+        }
+        if(( grid[0][0] == 'x' && grid[1][1] == 'x' && grid[2][2] == 'x' )
+                || ( grid[2][0] == 'x' && grid[1][1] == 'x' && grid[0][2] == 'x' )){
+            xWin = true;
+        }else if(( grid[0][0] == 'o' && grid[1][1] == 'o' && grid[2][2] == 'o' )
+                || ( grid[2][0] == 'o' && grid[1][1] == 'o' && grid[0][2] == 'o' )){
+            oWin = true;
+        }
+
+        if( xWin ){
+            result = "x wins";
+        }
+
+        if( oWin ) {
+            result = "o wins";
+        }
+
+        if(gamCounter == 9){ // if gameCounter == 9 it means game completed;
+            if(tie){
+                result = "tie";
+            }
+        }
         return result;
     }
 
